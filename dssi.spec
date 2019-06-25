@@ -5,8 +5,8 @@
 Name     : dssi
 Version  : 1.1.1
 Release  : 1
-URL      : https://downloads.sourceforge.net/project/dssi/dssi/1.1.1/dssi-1.1.1.tar.gz
-Source0  : https://downloads.sourceforge.net/project/dssi/dssi/1.1.1/dssi-1.1.1.tar.gz
+URL      : https://sourceforge.net/projects/dssi/files/dssi/1.1.1/dssi-1.1.1.tar.gz
+Source0  : https://sourceforge.net/projects/dssi/files/dssi/1.1.1/dssi-1.1.1.tar.gz
 Summary  : An API for audio processing plugins & softsynths with UIs
 Group    : Development/Tools
 License  : LGPL-2.1
