@@ -4,10 +4,10 @@
 #
 Name     : dssi
 Version  : 1.1.1
-Release  : 1
+Release  : 2
 URL      : https://sourceforge.net/projects/dssi/files/dssi/1.1.1/dssi-1.1.1.tar.gz
 Source0  : https://sourceforge.net/projects/dssi/files/dssi/1.1.1/dssi-1.1.1.tar.gz
-Summary  : An API for audio processing plugins & softsynths with UIs
+Summary  : A plugin API for software instruments
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: dssi-bin = %{version}-%{release}
@@ -42,7 +42,6 @@ Requires: dssi-lib = %{version}-%{release}
 Requires: dssi-bin = %{version}-%{release}
 Provides: dssi-devel = %{version}-%{release}
 Requires: dssi = %{version}-%{release}
-Requires: dssi = %{version}-%{release}
 
 %description dev
 dev components for the dssi package.
@@ -75,32 +74,34 @@ man components for the dssi package.
 
 %prep
 %setup -q -n dssi-1.1.1
+cd %{_builddir}/dssi-1.1.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1560103933
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604092706
+export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1560103933
+export SOURCE_DATE_EPOCH=1604092706
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/dssi
-cp COPYING %{buildroot}/usr/share/package-licenses/dssi/COPYING
+cp %{_builddir}/dssi-1.1.1/COPYING %{buildroot}/usr/share/package-licenses/dssi/82bddc837b78556a4f18773d86150e72482e5ae6
 %make_install
 
 %files
@@ -113,7 +114,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/dssi/COPYING
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/dssi.h
 /usr/lib64/pkgconfig/dssi.pc
 
 %files lib
@@ -125,7 +126,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/dssi/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/dssi/COPYING
+/usr/share/package-licenses/dssi/82bddc837b78556a4f18773d86150e72482e5ae6
 
 %files man
 %defattr(0644,root,root,0755)
